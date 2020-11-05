@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.smartloan.smtrick.electionapp">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -50,7 +51,8 @@
         <activity android:name=".ShowImagesActivity" />
         <activity android:name=".SubCatalogActivity" />
         <activity android:name=".UserDetailsActivity" />
-        <activity android:name=".Add_Updatelead__bankresult_Activity" />
+        <activity android:name=".Update_Member_Activity" />
+        <activity android:name=".Member_Details_Activity" />
         <activity android:name=".View_Member_Report_Activity" />
         <activity
             android:name=".sharedtransitionActivity"
@@ -71,7 +73,7 @@
         <activity
             android:name=".CropImageActivity"
             android:label="Crop Image" />
-        <activity android:name=".dummyActivity" />
+        <activity android:name=".Member_Registration_Activity" />
     </application>
 
 </manifest>

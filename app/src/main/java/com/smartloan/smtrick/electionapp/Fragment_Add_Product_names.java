@@ -1,6 +1,5 @@
 package com.smartloan.smtrick.electionapp;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
@@ -27,7 +26,6 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
@@ -338,11 +336,11 @@ public class Fragment_Add_Product_names extends Fragment implements View.OnClick
                     }
                 });
 
-                MemberVO memberdetails = new MemberVO(Smemberward, Smembername, Smemberbirthdate, Smembereducation, Smemberoccupation, Smembertemaddress, Smemberpermanentaddress,
-                        Smembercurrentaddress, Smembercontact, Smembercast, Smembergender, Smembervoteridnumber, Smemberrelation, Smemberid,
-                        Sleedid, Sdownloadurl,Smemberage);
-
-                mDatabaseRefpatient.child(Sleedid).setValue(memberdetails);
+//                MemberVO memberdetails = new MemberVO(Smemberward, Smembername, Smemberbirthdate, Smembereducation, Smemberoccupation, Smembertemaddress, Smemberpermanentaddress,
+//                        Smembercurrentaddress, Smembercontact, Smembercast, Smembergender, Smembervoteridnumber, Smemberrelation, Smemberid,
+//                        Sleedid, Sdownloadurl,Smemberage);
+//
+//                mDatabaseRefpatient.child(Sleedid).setValue(memberdetails);
 
                 Toast.makeText(getContext(), "Application Submited", Toast.LENGTH_SHORT).show();
 

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Election</string>
+    <string name="app_name">Election Application</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
@@ -93,4 +93,8 @@ We also supply an extensive range of quality prefinished engineered flooring, co
     <string name="mem_report_details_english">MEMBER REPORT DETAILS</string>
 
     <string name="mem_update">UPDATE</string>
+
+    <color name="orenge">#FF4500</color>
+    <color name="green">#008000</color>
+    <color name="red">#FF0000</color>
 </resources>

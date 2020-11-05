@@ -1,5 +1,6 @@
 package com.smartloan.smtrick.electionapp;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
@@ -16,7 +17,6 @@ import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -29,9 +29,6 @@ import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -63,24 +60,25 @@ import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
 import static com.smartloan.smtrick.electionapp.Constants.CALANDER_DATE_FORMATE;
 
 
-public class Add_Updatelead__bankresult_Activity extends AppCompatActivity implements View.OnClickListener, OnFragmentInteractionListener {
+public class Member_Details_Activity extends AppCompatActivity implements View.OnClickListener, OnFragmentInteractionListener {
 
     private EditText etmemberward, etmembername, etmemberbirthdate, etmembereducation, etmembertemaddress, etmemberpermanentaddress,
-            etmembercurrentaddress, etmembercontact, etmembercast, etmembervoteridnumber, etmemberage;
+            etmembercurrentaddress, etmembercontact, etmembercast, etmembervoteridnumber, etmemberage,spinneroccupation;
     private String Smemberward, Smembername, Smemberbirthdate, Smembereducation, Smemberoccupation, Smembertemaddress, Smemberpermanentaddress,
-            Smembercurrentaddress, Smembercontact, Smembercast, Smembergender, Smembervoteridnumber, Smemberrelation, Smemberid, Sleedid,
+            Smembercurrentaddress, Smembercontact, Smembercast, Smembergender, SmemberZone, Smembervoteridnumber, Smemberrelation, Smemberid, Sleedid,
             Smemberimage, Smemberage;
 
-    TextView memregi, memdetails, gender,
+    private TextView memregi, memdetails, gender,
             etmemberward1, etmembername1, etmemberbirthdate1, etmembereducation1, etmembertemaddress1, etmemberpermanentaddress1,
-            etmembercurrentaddress1, etmembercontact1, etmembercast1, etmembervoteridnumber1, etmemberage1,etmemberoccupation1;
-
-    private Spinner spinneroccupation, spinnercountrycode;
+            etmembercurrentaddress1, etmembercontact1, etmembercast1, etmembervoteridnumber1, etmemberage1, etmemberoccupation1,
+            txtGender, txtZone;
+    private ImageView imgZone,imgEdit;
+//    private Spinner  spinnercountrycode;
 
     private CheckBox CHmemberrelation;
 
-    private RadioGroup groupGender;
-    private RadioButton Rmale, Rfemale, Rgender;
+//    private RadioGroup groupGender,groupZone;
+//    private RadioButton Rmale, Rfemale, Rgender,ROrenge,RGreen,RRed,RZone;
 
     private List<String> listoccupation;
 
@@ -92,7 +90,7 @@ public class Add_Updatelead__bankresult_Activity extends AppCompatActivity imple
     private StorageReference storageReference;
 
     private Button AddsubData;
-    private Button AddmainData;
+//    private Button AddmainData;
     private List<String> mainproductlist;
     private List<String> subproductlist;
     // MainProducts mainProducts;
@@ -100,7 +98,7 @@ public class Add_Updatelead__bankresult_Activity extends AppCompatActivity imple
     MemberVO invoice;
     LeedRepository leedRepository;
 
-    ImageView MemberImage,Delete;
+    ImageView MemberImage, Delete;
     private static final int REQUEST_PICK_IMAGE = 1002;
     String image;
     private Uri filePath;
@@ -125,7 +123,7 @@ public class Add_Updatelead__bankresult_Activity extends AppCompatActivity imple
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.admin_bankresult_activity);
+        setContentView(R.layout.member_details_activity);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         assert getSupportActionBar() != null;   //null check
@@ -173,18 +171,28 @@ public class Add_Updatelead__bankresult_Activity extends AppCompatActivity imple
         etmemberage1 = (TextView) findViewById(R.id.memberage1);
         etmemberoccupation1 = (TextView) findViewById(R.id.occupation1);
 
-        AddmainData = (Button) findViewById(R.id.submit);
+//        AddmainData = (Button) findViewById(R.id.submit);
 
-        spinneroccupation = (Spinner) findViewById(R.id.occupation);
-        spinnercountrycode = (Spinner) findViewById(R.id.countrycode);
-        groupGender = (RadioGroup) findViewById(R.id.radioSex);
+        spinneroccupation = (EditText) findViewById(R.id.occupation);
+//        spinnercountrycode = (Spinner) findViewById(R.id.countrycode);
+//        groupGender = (RadioGroup) findViewById(R.id.radioSex);
+//        groupZone = (RadioGroup) findViewById(R.id.radioGroupZone);
         CHmemberrelation = (CheckBox) findViewById(R.id.relation);
 
         MemberImage = (ImageView) findViewById(R.id.memberimage);
         Delete = (ImageView) findViewById(R.id.deletemember);
 
-        Rmale = (RadioButton) findViewById(R.id.radioMale);
-        Rfemale = (RadioButton) findViewById(R.id.radioFemale);
+//        Rmale = (RadioButton) findViewById(R.id.radioMale);
+//        Rfemale = (RadioButton) findViewById(R.id.radioFemale);
+//
+//        ROrenge = (RadioButton) findViewById(R.id.radioOrenge);
+//        RGreen = (RadioButton) findViewById(R.id.radioGreen);
+//        RRed = (RadioButton) findViewById(R.id.radioRed);
+
+        imgZone = (ImageView) findViewById(R.id.imgzone);
+        imgEdit = (ImageView) findViewById(R.id.editemember);
+        txtGender = (TextView) findViewById(R.id.gendervalue);
+        txtZone = (TextView) findViewById(R.id.zonevalue);
 
         mDatabaseRefpatient = FirebaseDatabase.getInstance().getReference("Members");
         mDatabase = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_PATIENTS);
@@ -219,18 +227,18 @@ public class Add_Updatelead__bankresult_Activity extends AppCompatActivity imple
                 android.R.layout.simple_spinner_item, listcountrycode);
 
         country.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnercountrycode.setAdapter(country);
-
-        try {
-
-            ArrayAdapter<String> occupation = new ArrayAdapter<String>(Add_Updatelead__bankresult_Activity.this,
-                    android.R.layout.simple_spinner_item, listoccupation);
-
-            occupation.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            spinneroccupation.setAdapter(occupation);
-
-        } catch (Exception e) {
-        }
+//        spinnercountrycode.setAdapter(country);
+//
+//        try {
+//
+//            ArrayAdapter<String> occupation = new ArrayAdapter<String>(Member_Details_Activity.this,
+//                    android.R.layout.simple_spinner_item, listoccupation);
+//
+//            occupation.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//            spinneroccupation.setAdapter(occupation);
+//
+//        } catch (Exception e) {
+//        }
 
         listoccupation_Marathi = new ArrayList<>();
         listoccupation_Marathi.add("लागू नाही");
@@ -251,19 +259,25 @@ public class Add_Updatelead__bankresult_Activity extends AppCompatActivity imple
 
         getdata();
 
-        if (isNetworkAvailable()){
+        if (isNetworkAvailable()) {
 //            Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
-        }else {
+        } else {
             Toast.makeText(this, "No Internet Connection", Toast.LENGTH_SHORT).show();
         }
-        groupGender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
-                Rgender = (RadioButton) findViewById(checkedId);
-            }
-        });
+//        groupGender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
+//                Rgender = (RadioButton) findViewById(checkedId);
+//            }
+//        });
+//        groupZone.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
+//                RZone = (RadioButton) findViewById(checkedId);
+//            }
+//        });
 
-        AddmainData.setOnClickListener(this);
+        imgZone.setOnClickListener(this);
 //        setFromDateClickListner();
         MemberImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -273,10 +287,20 @@ public class Add_Updatelead__bankresult_Activity extends AppCompatActivity imple
             }
         });
 
+        imgEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Update_Member_Activity.class);
+
+                intent.putExtra("invoice", invoice);
+                startActivity(intent);
+
+            }
+        });
         Delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder alert = new AlertDialog.Builder(Add_Updatelead__bankresult_Activity.this);
+                AlertDialog.Builder alert = new AlertDialog.Builder(Member_Details_Activity.this);
                 TextView title = new TextView(getApplicationContext());
                 title.setText("Do you wnt to Delete");
                 title.setPadding(10, 10, 10, 10);
@@ -297,77 +321,9 @@ public class Add_Updatelead__bankresult_Activity extends AppCompatActivity imple
                                 public void onDataChange(DataSnapshot dataSnapshot) {
                                     for (DataSnapshot appleSnapshot : dataSnapshot.getChildren()) {
 
-//                                        try {
-//                                            //////////2/////
-//                                            String item2 = list.get(position).toString();
-//                                            DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-//                                            Query applesQuery = ref.child("SubProducts").orderByChild("mainproduct").equalTo(item2);
-//
-//                                            applesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-//                                                @Override
-//                                                public void onDataChange(DataSnapshot dataSnapshot) {
-//                                                    for (DataSnapshot appleSnapshot : dataSnapshot.getChildren()) {
-//
-//                                                        ///////3//////
-//                                                        try {
-//
-//                                                            String item3 = list.get(position).toString();
-//                                                            DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference();
-//                                                            Query applesQuery1 = ref1.child("NewImage").orderByChild("mainproduct").equalTo(item3);
-//
-//                                                            applesQuery1.addListenerForSingleValueEvent(new ValueEventListener() {
-//                                                                @Override
-//                                                                public void onDataChange(DataSnapshot dataSnapshot) {
-//                                                                    for (DataSnapshot appleSnapshot : dataSnapshot.getChildren()) {
-//
-//                                                                        Upload upload = appleSnapshot.getValue(Upload.class);
-//                                                                        try {
-//                                                                            mStorage = FirebaseStorage.getInstance();
-//                                                                            StorageReference imageRef = mStorage.getReferenceFromUrl(upload.getUrl());
-//                                                                            imageRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                                                                @Override
-//                                                                                public void onSuccess(Void aVoid) {
-//                                                                                    //   Toast.makeText(context, "Item deleted", Toast.LENGTH_SHORT).show();
-//
-//                                                                                }
-//                                                                            });
-//                                                                        }catch (Exception e){
-//
-//                                                                        }
-//                                                                        appleSnapshot.getRef().removeValue();
-//
-//                                                                    }
-//                                                                }
-//
-//                                                                @Override
-//                                                                public void onCancelled(DatabaseError databaseError) {
-//                                                                    Log.e(TAG, "onCancelled", databaseError.toException());
-//                                                                }
-//                                                            });
-//
-//                                                            appleSnapshot.getRef().removeValue();
-//
-//                                                        } catch (Exception e) {
-//                                                            Toast.makeText(holder.cardView.getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-//                                                        }
-//                                                    }
-//                                                }
-//
-//                                                @Override
-//                                                public void onCancelled(DatabaseError databaseError) {
-//                                                    Log.e(TAG, "onCancelled", databaseError.toException());
-//                                                }
-//                                            });
-//
-//                                            appleSnapshot.getRef().removeValue();
-//                                            Toast.makeText(holder.catalogname.getContext(), "Delete Product Successfully", Toast.LENGTH_SHORT).show();
-//                                            list.clear();
-//
-//                                        } catch (Exception e) {
-//
                                         appleSnapshot.getRef().removeValue();
-                                        Toast.makeText(Add_Updatelead__bankresult_Activity.this, "Delete Product Successfully", Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(Add_Updatelead__bankresult_Activity.this,MainActivity.class);
+                                        Toast.makeText(Member_Details_Activity.this, "Delete Product Successfully", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(Member_Details_Activity.this, MainActivity.class);
                                         startActivity(intent);
                                     }
                                 }
@@ -456,6 +412,7 @@ public class Add_Updatelead__bankresult_Activity extends AppCompatActivity imple
             String contact = invoice.getMembercontact().substring(3);
             String cast = invoice.getMembercast();
             String gender = invoice.getMembergender();
+            String Zone = invoice.getMemberzone();
             String voterid = invoice.getMembervoteridnumber();
             String relation = invoice.getMemberrelation();
             String memberimage = invoice.getMemberimage();
@@ -476,9 +433,12 @@ public class Add_Updatelead__bankresult_Activity extends AppCompatActivity imple
                 etmembereducation.setText(education);
             }
 
-            ArrayAdapter myAdap = (ArrayAdapter) spinneroccupation.getAdapter();
-            int spinnerPosition = myAdap.getPosition(occupation);
-            spinneroccupation.setSelection(spinnerPosition);
+            if (occupation != null) {
+//                ArrayAdapter myAdap = (ArrayAdapter) spinneroccupation.getAdapter();
+////                int spinnerPosition = myAdap.getPosition(occupation);
+//                spinneroccupation.setSelection(myAdap.getPosition(occupation));
+                spinneroccupation.setText(occupation);
+            }
 
             if (tempaddress != null) {
                 etmembertemaddress.setText(tempaddress);
@@ -497,10 +457,29 @@ public class Add_Updatelead__bankresult_Activity extends AppCompatActivity imple
             }
             if (gender != null) {
                 if (gender.equalsIgnoreCase("Male")) {
-                    Rmale.setChecked(true);
+//                    Rmale.setChecked(true);
+                    txtGender.setText(gender);
                 } else if (gender.equalsIgnoreCase("Female")) {
-                    Rfemale.setChecked(true);
+//                    Rfemale.setChecked(true);
+                    txtGender.setText(gender);
                 }
+            }
+            if (Zone != null) {
+                if (Zone.equalsIgnoreCase("Orenge")) {
+//                    ROrenge.setChecked(true);
+                    txtZone.setText(Zone);
+                    imgZone.setImageResource(R.drawable.orenge);
+                } else if (Zone.equalsIgnoreCase("Green")) {
+//                    RGreen.setChecked(true);
+                    txtZone.setText(Zone);
+                    imgZone.setImageResource(R.drawable.green);
+                } else if (Zone.equalsIgnoreCase("Red")) {
+//                    RRed.setChecked(true);
+                    txtZone.setText(Zone);
+                    imgZone.setImageResource(R.drawable.red);
+                }
+            }else {
+                txtZone.setText("null");
             }
             if (voterid != null) {
                 etmembervoteridnumber.setText(voterid);
@@ -521,9 +500,9 @@ public class Add_Updatelead__bankresult_Activity extends AppCompatActivity imple
 
     @Override
     public void onClick(View v) {
-        if (v == AddmainData) {
-            SetData();
-        }
+//        if (v == AddmainData) {
+//            SetData();
+//        }
     }
 
     private void SetData() {
@@ -532,18 +511,23 @@ public class Add_Updatelead__bankresult_Activity extends AppCompatActivity imple
         Smembername = etmembername.getText().toString();
         Smemberbirthdate = etmemberbirthdate.getText().toString();
         Smembereducation = etmembereducation.getText().toString();
-        Smemberoccupation = spinneroccupation.getSelectedItem().toString();
+        Smemberoccupation = spinneroccupation.getText().toString();
 
         Smembertemaddress = etmembertemaddress.getText().toString();
         Smemberpermanentaddress = etmemberpermanentaddress.getText().toString();
         Smembercurrentaddress = etmembercurrentaddress.getText().toString();
-        Smembercontact = spinnercountrycode.getSelectedItem().toString() + etmembercontact.getText().toString();
+//        Smembercontact = spinnercountrycode.getSelectedItem().toString() + etmembercontact.getText().toString();
         Smembercast = etmembercast.getText().toString();
         Smemberage = etmemberage.getText().toString();
-        if (groupGender.getCheckedRadioButtonId() != -1) {
-            RadioButton btn = (RadioButton) groupGender.getChildAt(groupGender.indexOfChild(groupGender.findViewById(groupGender.getCheckedRadioButtonId())));
-            Smembergender = btn.getText().toString();
-        }
+//        if (groupGender.getCheckedRadioButtonId() != -1) {
+//            RadioButton btn = (RadioButton) groupGender.getChildAt(groupGender.indexOfChild(groupGender.findViewById(groupGender.getCheckedRadioButtonId())));
+//            Smembergender = btn.getText().toString();
+//        }
+//        if (groupZone.getCheckedRadioButtonId() != -1) {
+//            RadioButton btn = (RadioButton) groupZone.getChildAt(groupZone.indexOfChild(groupZone.findViewById(groupZone.getCheckedRadioButtonId())));
+//            SmemberZone = btn.getText().toString();
+//        }
+
         Smembervoteridnumber = etmembervoteridnumber.getText().toString();
         if (CHmemberrelation.isChecked()) {
             Smemberrelation = CHmemberrelation.getText().toString();
@@ -551,7 +535,7 @@ public class Add_Updatelead__bankresult_Activity extends AppCompatActivity imple
 
         if (code.equalsIgnoreCase("2")) {
 
-            final ProgressDialog progressDialog = new ProgressDialog(Add_Updatelead__bankresult_Activity.this);
+            final ProgressDialog progressDialog = new ProgressDialog(Member_Details_Activity.this);
             progressDialog.setTitle("Uploading");
             progressDialog.show();
             final StorageReference sRef = storageReference.child(Constants.STORAGE_PATH_UPLOADS + System.currentTimeMillis() + "." + getFileExtension(filePath));
@@ -581,7 +565,7 @@ public class Add_Updatelead__bankresult_Activity extends AppCompatActivity imple
                 @Override
                 public void onFailure(@NonNull Exception exception) {
                     progressDialog.dismiss();
-                    Toast.makeText(Add_Updatelead__bankresult_Activity.this, exception.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(Member_Details_Activity.this, exception.getMessage(), Toast.LENGTH_LONG).show();
                 }
             }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                 @Override
@@ -613,6 +597,7 @@ public class Add_Updatelead__bankresult_Activity extends AppCompatActivity imple
         invoice1.setMembercontact(Smembercontact);
         invoice1.setMembercast(Smembercast);
         invoice1.setMembergender(Smembergender);
+        invoice1.setMemberzone(SmemberZone);
         invoice1.setMembervoteridnumber(Smembervoteridnumber);
         invoice1.setMemberrelation(Smemberrelation);
         invoice1.setMemberimage(Smemberimage);
@@ -628,9 +613,9 @@ public class Add_Updatelead__bankresult_Activity extends AppCompatActivity imple
             @Override
             public void onSuccess(Object object) {
 
-                Toast.makeText(Add_Updatelead__bankresult_Activity.this, "Member Updated", Toast.LENGTH_SHORT).show();
-               Intent intent = new Intent(Add_Updatelead__bankresult_Activity.this,MainActivity.class);
-               startActivity(intent);
+                Toast.makeText(Member_Details_Activity.this, "Member Updated", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Member_Details_Activity.this, MainActivity.class);
+                startActivity(intent);
             }
 
             @Override
@@ -688,10 +673,11 @@ public class Add_Updatelead__bankresult_Activity extends AppCompatActivity imple
                         etmembervoteridnumber.setHint(R.string.register_voterno);
                         etmemberage.setHint(R.string.register_memberage);
                         CHmemberrelation.setText(R.string.register_relation);
-                        AddmainData.setText(R.string.register_btnupdate);
+//                        AddmainData.setText(R.string.register_btnupdate);
                         gender.setText(R.string.register_gender);
-                        Rmale.setText(R.string.register_male);
-                        Rfemale.setText(R.string.register_female);
+
+//                        Rmale.setText(R.string.register_male);
+//                        Rfemale.setText(R.string.register_female);
 
                         etmemberward1.setText(R.string.register_wardno);
                         etmembername1.setText(R.string.register_membername);
@@ -706,10 +692,10 @@ public class Add_Updatelead__bankresult_Activity extends AppCompatActivity imple
                         etmemberage1.setText(R.string.register_memberage);
                         etmemberoccupation1.setText(R.string.register_occupation);
 
-                        ArrayAdapter<String> occupation = new ArrayAdapter<String>(Add_Updatelead__bankresult_Activity.this,
-                                android.R.layout.simple_spinner_item, listoccupation_Marathi);
-                        occupation.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        spinneroccupation.setAdapter(occupation);
+//                        ArrayAdapter<String> occupation = new ArrayAdapter<String>(Member_Details_Activity.this,
+//                                android.R.layout.simple_spinner_item, listoccupation_Marathi);
+//                        occupation.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//                        spinneroccupation.setText(occupation);
                     } else if (lang.equalsIgnoreCase("english")) {
 
                         memregi.setText(R.string.reg_member);
@@ -726,10 +712,10 @@ public class Add_Updatelead__bankresult_Activity extends AppCompatActivity imple
                         etmembervoteridnumber.setHint(R.string.mem_voteridnumber);
                         etmemberage.setHint(R.string.mem_age);
                         CHmemberrelation.setText(R.string.mem_relative);
-                        AddmainData.setText(R.string.mem_update);
+//                        AddmainData.setText(R.string.mem_update);
                         gender.setText(R.string.mem_gender);
-                        Rmale.setText(R.string.mem_male);
-                        Rfemale.setText(R.string.mem_female);
+//                        Rmale.setText(R.string.mem_male);
+//                        Rfemale.setText(R.string.mem_female);
 
                         etmemberward1.setText(R.string.mem_ward);
                         etmembername1.setText(R.string.mem_name);
@@ -743,10 +729,10 @@ public class Add_Updatelead__bankresult_Activity extends AppCompatActivity imple
                         etmembervoteridnumber1.setText(R.string.mem_voteridnumber);
                         etmemberage1.setText(R.string.mem_age);
                         etmemberoccupation1.setText(R.string.mem_occupation);
-                        ArrayAdapter<String> occupation = new ArrayAdapter<String>(Add_Updatelead__bankresult_Activity.this,
-                                android.R.layout.simple_spinner_item, listoccupation);
-                        occupation.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        spinneroccupation.setAdapter(occupation);
+//                        ArrayAdapter<String> occupation = new ArrayAdapter<String>(Member_Details_Activity.this,
+//                                android.R.layout.simple_spinner_item, listoccupation);
+//                        occupation.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//                        spinneroccupation.setAdapter(occupation);
                     }
 
                 }
@@ -754,7 +740,7 @@ public class Add_Updatelead__bankresult_Activity extends AppCompatActivity imple
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                    Toast.makeText(Add_Updatelead__bankresult_Activity.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Member_Details_Activity.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
 
                 }
             });
@@ -776,7 +762,7 @@ public class Add_Updatelead__bankresult_Activity extends AppCompatActivity imple
         etmemberbirthdate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
-                DatePickerDialog mDatePicker = new DatePickerDialog(Add_Updatelead__bankresult_Activity.this, new DatePickerDialog.OnDateSetListener() {
+                DatePickerDialog mDatePicker = new DatePickerDialog(Member_Details_Activity.this, new DatePickerDialog.OnDateSetListener() {
                     public void onDateSet(DatePicker datepicker, int selectedyear, int selectedmonth, int selectedday) {
                         Calendar myCalendar = Calendar.getInstance();
                         myCalendar.set(Calendar.YEAR, selectedyear);

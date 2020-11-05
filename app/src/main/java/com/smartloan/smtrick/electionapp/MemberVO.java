@@ -12,7 +12,7 @@ public class MemberVO implements Serializable {
 
     private String memberward, membername, memberbirthdate, membereducation, memberoccupation, membertemaddress, memberpermanentaddress,
             membercurrentaddress, membercontact, membercast, membergender, membervoteridnumber, memberrelation, memberid, leedid,
-    memberimage,memberage;
+            memberimage,memberage,memberzone;
 
 
     public Long createdDateTime;
@@ -27,7 +27,7 @@ public class MemberVO implements Serializable {
     public MemberVO(String memberward, String membername, String memberbirthdate, String membereducation, String memberoccupation, String membertemaddress,
                     String memberpermanentaddress, String membercurrentaddress, String membercontact, String membercast, String membergender,
                     String membervoteridnumber, String memberrelation, String memberid, String leedid,String memberimage,
-                    String memberage) {
+                    String memberage,String memberzone) {
 
         this.createdDateTime = createdDateTime;
         this.memberward = memberward;
@@ -47,6 +47,7 @@ public class MemberVO implements Serializable {
         this.leedid = leedid;
         this.memberimage = memberimage;
         this.memberage = memberage;
+        this.memberzone = memberzone;
     }
 
 
@@ -198,6 +199,14 @@ public class MemberVO implements Serializable {
         this.createdDateTime = createdDateTime;
     }
 
+    public String getMemberzone() {
+        return memberzone;
+    }
+
+    public void setMemberzone(String memberzone) {
+        this.memberzone = memberzone;
+    }
+
     public static ArrayList<RelationVO> getLeeds() {
         ArrayList<RelationVO> leedsModelArrayList = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
@@ -229,6 +238,7 @@ public class MemberVO implements Serializable {
         leedMap.put("leedid", getLeedid());
         leedMap.put("memberimage",getMemberimage());
         leedMap.put("memberage",getMemberage());
+        leedMap.put("memberzone",getMemberzone());
 
         return leedMap;
 

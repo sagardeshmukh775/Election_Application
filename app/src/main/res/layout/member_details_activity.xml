@@ -16,17 +16,44 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-
-            <TextView
-                android:id="@+id/memberregistration"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:gravity="center_horizontal"
-                android:text="MEMBER REGISTRATION"
-                android:textColor="@color/toolbar"
-                android:textSize="18dp"
-                android:textStyle="bold" />
+                android:orientation="horizontal"
+                android:weightSum="100">
+
+                <TextView
+                    android:id="@+id/memberregistration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:text="MEMBER UPDATION"
+                    android:textColor="@color/toolbar"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:layout_weight="70"/>
+
+                <ImageView
+                    android:id="@+id/editemember"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="100dp"
+                    android:layout_marginTop="22dp"
+                    android:gravity="left"
+                    android:src="@drawable/edit_button"
+                    android:layout_weight="15"/>
+
+                <ImageView
+                    android:id="@+id/deletemember"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="20dp"
+                    android:gravity="left"
+                    android:layout_weight="15"
+                    android:src="@drawable/delete" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/memberdertails"
@@ -45,17 +72,27 @@
                 android:layout_margin="5dp"
                 android:orientation="vertical">
 
+                <TextView
+                    android:id="@+id/name1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:text="Name"
+                    android:textSize="13dp" />
+
                 <EditText
                     android:id="@+id/name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/edittextanimation"
                     android:hint="NAME"
                     android:padding="10dp"
+                    android:focusable="false"
                     android:textColor="@color/input_register_bg"
                     android:textColorHint="@color/input_login_hint" />
 
@@ -71,20 +108,41 @@
                         android:layout_weight="50"
                         android:orientation="vertical">
 
+                        <TextView
+                            android:id="@+id/wardnumber1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="10dp"
+                            android:text="Ward Number"
+                            android:textSize="13dp" />
+
                         <EditText
                             android:id="@+id/wardnumber"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginLeft="10dp"
-                            android:layout_marginTop="10dp"
                             android:layout_marginRight="10dp"
                             android:background="@drawable/edittextanimation"
-                            android:hint="Ward Number"
+                            android:hint="WARD NUMBER"
                             android:inputType="number"
                             android:padding="10dp"
+                            android:focusable="false"
                             android:textColor="@color/input_register_bg"
                             android:textColorHint="@color/input_login_hint" />
+
+
+                        <TextView
+                            android:id="@+id/memberage1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="10dp"
+                            android:text="Age"
+                            android:textSize="13dp" />
 
                         <EditText
                             android:id="@+id/memberage"
@@ -92,15 +150,25 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginLeft="10dp"
-                            android:layout_marginTop="10dp"
                             android:layout_marginRight="10dp"
                             android:background="@drawable/edittextanimation"
                             android:hint="AGE"
                             android:inputType="number"
                             android:maxLength="3"
                             android:padding="10dp"
+                            android:focusable="false"
                             android:textColor="@color/input_register_bg"
                             android:textColorHint="@color/input_login_hint" />
+
+                        <TextView
+                            android:id="@+id/dob1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="10dp"
+                            android:text="D.O.B"
+                            android:textSize="13dp" />
 
                         <EditText
                             android:id="@+id/dob"
@@ -108,11 +176,11 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginLeft="10dp"
-                            android:layout_marginTop="10dp"
                             android:layout_marginRight="10dp"
                             android:background="@drawable/edittextanimation"
                             android:hint="D.O.B"
                             android:padding="10dp"
+                            android:focusable="false"
                             android:textColor="@color/input_register_bg"
                             android:textColorHint="@color/input_login_hint" />
 
@@ -126,7 +194,6 @@
 
 
                         <ImageView
-
                             android:id="@+id/memberimage"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent" />
@@ -135,6 +202,15 @@
 
                 </LinearLayout>
 
+                <TextView
+                    android:id="@+id/education1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:text="Education"
+                    android:textSize="13dp" />
 
                 <EditText
                     android:id="@+id/education"
@@ -142,25 +218,58 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/edittextanimation"
                     android:hint="EDUCATIN"
                     android:padding="10dp"
+                    android:focusable="false"
                     android:textColor="@color/input_register_bg"
                     android:textColorHint="@color/input_login_hint" />
 
-                <Spinner
+                <TextView
+                    android:id="@+id/occupation1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:text="Occupation"
+                    android:textSize="13dp" />
+
+                <EditText
                     android:id="@+id/occupation"
-                    style="@style/Widget.AppCompat.Spinner.Underlined"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/edittextanimation"
-                    android:padding="10dp" />
+                    android:hint="OCCUPATION"
+                    android:padding="10dp"
+                    android:focusable="false"
+                    android:textColor="@color/input_register_bg"
+                    android:textColorHint="@color/input_login_hint" />
+
+<!--                <Spinner-->
+<!--                    android:id="@+id/occupation"-->
+<!--                    style="@style/Widget.AppCompat.Spinner.Underlined"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:layout_marginLeft="10dp"-->
+<!--                    android:layout_marginRight="10dp"-->
+<!--                    android:background="@drawable/edittextanimation"-->
+<!--                    android:padding="10dp" />-->
+
+                <TextView
+                    android:id="@+id/temporaryaddress1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:text="Temparory Address"
+                    android:textSize="13dp" />
 
                 <EditText
                     android:id="@+id/temporaryaddress"
@@ -168,14 +277,23 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/edittextanimation"
                     android:hint="TEMPORARY ADDRESS"
                     android:padding="10dp"
+                    android:focusable="false"
                     android:textColor="@color/input_register_bg"
                     android:textColorHint="@color/input_login_hint" />
 
+                <TextView
+                    android:id="@+id/permanentaddress1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:text="Permanent Address"
+                    android:textSize="13dp" />
 
                 <EditText
                     android:id="@+id/permanentaddress"
@@ -183,14 +301,23 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/edittextanimation"
                     android:hint="PERMANENT ADDRESS"
                     android:padding="10dp"
+                    android:focusable="false"
                     android:textColor="@color/input_register_bg"
                     android:textColorHint="@color/input_login_hint" />
 
+                <TextView
+                    android:id="@+id/currentaddress1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:text="Current Address"
+                    android:textSize="13dp" />
 
                 <EditText
                     android:id="@+id/currentaddress"
@@ -198,13 +325,23 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/edittextanimation"
                     android:hint="CURRENT ADDRESS"
                     android:padding="10dp"
+                    android:focusable="false"
                     android:textColor="@color/input_register_bg"
                     android:textColorHint="@color/input_login_hint" />
+
+                <TextView
+                    android:id="@+id/contactnumber1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:text="Contact"
+                    android:textSize="13dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -213,34 +350,43 @@
                     android:padding="10dp"
                     android:weightSum="10">
 
-                    <Spinner
-                        android:id="@+id/countrycode"
-                        style="@style/Widget.AppCompat.Spinner.Underlined"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginRight="10dp"
-                        android:layout_weight="7"
-                        android:background="@drawable/edittextanimation"
-                        android:padding="10dp" />
+<!--                    <Spinner-->
+<!--                        android:id="@+id/countrycode"-->
+<!--                        style="@style/Widget.AppCompat.Spinner.Underlined"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_gravity="center"-->
+<!--                        android:layout_marginRight="10dp"-->
+<!--                        android:layout_weight="7"-->
+<!--                        android:background="@drawable/edittextanimation"-->
+<!--                        android:padding="10dp" />-->
 
                     <EditText
                         android:id="@+id/contactnumber"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginLeft="10dp"
                         android:layout_weight="3"
                         android:background="@drawable/edittextanimation"
                         android:hint="CONTACT NUMBER"
                         android:inputType="phone"
                         android:maxLength="10"
                         android:padding="10dp"
+                        android:focusable="false"
                         android:textColor="@color/input_register_bg"
                         android:textColorHint="@color/input_login_hint" />
 
                 </LinearLayout>
 
+                <TextView
+                    android:id="@+id/cast1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:text="Cast"
+                    android:textSize="13dp" />
 
                 <EditText
                     android:id="@+id/cast"
@@ -248,11 +394,11 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/edittextanimation"
                     android:hint="CAST"
                     android:padding="10dp"
+                    android:focusable="false"
                     android:textColor="@color/input_register_bg"
                     android:textColorHint="@color/input_login_hint" />
 
@@ -262,8 +408,8 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="10dp"
-                    android:weightSum="100"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:weightSum="100">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -284,28 +430,35 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="20">
 
-                        <RadioGroup
-                            android:id="@+id/radioSex"
+                        <TextView
+                            android:id="@+id/gendervalue"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:orientation="horizontal">
+                            android:layout_marginTop="8dp"
+                            android:text="GENDER" />
 
-                            <RadioButton
-                                android:id="@+id/radioMale"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:checked="true"
-                                android:text="Male" />
+<!--                        <RadioGroup-->
+<!--                            android:id="@+id/radioSex"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginLeft="20dp"-->
+<!--                            android:orientation="horizontal">-->
 
-                            <RadioButton
-                                android:id="@+id/radioFemale"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="7dp"
-                                android:text="Female" />
+<!--                            <RadioButton-->
+<!--                                android:id="@+id/radioMale"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:checked="true"-->
+<!--                                android:text="Male" />-->
 
-                        </RadioGroup>
+<!--                            <RadioButton-->
+<!--                                android:id="@+id/radioFemale"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_marginLeft="7dp"-->
+<!--                                android:text="Female" />-->
+
+<!--                        </RadioGroup>-->
 
                     </LinearLayout>
 
@@ -317,8 +470,8 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="10dp"
-                    android:weightSum="100"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:weightSum="100">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -337,45 +490,70 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:orientation="horizontal"
                         android:layout_weight="20">
 
-                        <RadioGroup
-                            android:id="@+id/radioGroupZone"
+                        <ImageView
+                            android:id="@+id/imgzone"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_gravity="bottom"/>
+
+                        <TextView
+                            android:id="@+id/zonevalue"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:orientation="horizontal">
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="8dp"
+                            android:text="ZONE" />
 
-                            <RadioButton
-                                android:id="@+id/radioOrenge"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:checked="true"
-                                android:text="Orenge"
-                                android:textColor="@color/orenge" />
+<!--                        <RadioGroup-->
+<!--                            android:id="@+id/radioGroupZone"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginLeft="20dp"-->
+<!--                            android:orientation="horizontal">-->
 
-                            <RadioButton
-                                android:id="@+id/radioGreen"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="7dp"
-                                android:text="Green"
-                                android:textColor="@color/green" />
+<!--                            <RadioButton-->
+<!--                                android:id="@+id/radioOrenge"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:checked="true"-->
+<!--                                android:text="Orenge"-->
+<!--                                android:textColor="@color/orenge" />-->
 
-                            <RadioButton
-                                android:id="@+id/radioRed"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="7dp"
-                                android:text="Red"
-                                android:textColor="@color/red" />
+<!--                            <RadioButton-->
+<!--                                android:id="@+id/radioGreen"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_marginLeft="7dp"-->
+<!--                                android:text="Green"-->
+<!--                                android:textColor="@color/green" />-->
 
-                        </RadioGroup>
+<!--                            <RadioButton-->
+<!--                                android:id="@+id/radioRed"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_marginLeft="7dp"-->
+<!--                                android:text="Red"-->
+<!--                                android:textColor="@color/red" />-->
+
+<!--                        </RadioGroup>-->
 
                     </LinearLayout>
 
                 </LinearLayout>
 
+                <TextView
+                    android:id="@+id/voteridnumber1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:text="Voter Id Number"
+                    android:textSize="13dp" />
 
                 <EditText
                     android:id="@+id/voteridnumber"
@@ -383,13 +561,12 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/edittextanimation"
                     android:hint="VOTER ID NUMBER"
                     android:inputType="number"
-                    android:maxLength="10"
                     android:padding="10dp"
+                    android:focusable="false"
                     android:textColor="@color/input_register_bg"
                     android:textColorHint="@color/input_login_hint" />
 
@@ -408,19 +585,19 @@
             </LinearLayout>
 
 
-            <Button
-                android:id="@+id/submit"
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="30dp"
-                android:background="@color/toolbar"
-                android:gravity="center"
-                android:text="SUBMIT"
-                android:textColor="@color/white" />
+<!--            <Button-->
+<!--                android:id="@+id/submit"-->
+<!--                android:layout_width="250dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:layout_marginLeft="10dp"-->
+<!--                android:layout_marginTop="30dp"-->
+<!--                android:layout_marginRight="10dp"-->
+<!--                android:layout_marginBottom="30dp"-->
+<!--                android:background="@color/toolbar"-->
+<!--                android:gravity="center"-->
+<!--                android:text="UPDATE"-->
+<!--                android:textColor="@color/white" />-->
 
         </LinearLayout>
 

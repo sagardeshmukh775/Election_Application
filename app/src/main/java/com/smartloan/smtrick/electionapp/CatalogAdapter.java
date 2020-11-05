@@ -75,7 +75,7 @@ public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.ViewHold
             public void onClick(View v) {
                 //Do on click stuff
                 String item = list.get(position).toString();
-                Intent intent = new Intent(holder.pname.getContext(), Add_Updatelead__bankresult_Activity.class);
+                Intent intent = new Intent(holder.pname.getContext(), Member_Details_Activity.class);
                 intent.putExtra("itemName", item);
                 intent.putExtra("invoice", pveo);
                 holder.pname.getContext().startActivity(intent);

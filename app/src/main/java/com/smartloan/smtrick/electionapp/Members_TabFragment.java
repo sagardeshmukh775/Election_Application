@@ -12,13 +12,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-public class Doctors_TabFragment extends Fragment {
+public class Members_TabFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
     TabLayout tabLayout;
     ViewPager viewPager;
     ViewPagerAdapter viewPagerAdapter;
 
-    public Doctors_TabFragment() {
+    public Members_TabFragment() {
     }
 
     @Override

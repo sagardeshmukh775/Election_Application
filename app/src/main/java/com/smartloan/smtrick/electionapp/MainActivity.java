@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity
         //setMenuTitles();
 
         //NOTE:  Open fragment1 initially.
-        selectedFragement = new Doctors_TabFragment();
+        selectedFragement = new Members_TabFragment();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.mainFrame, selectedFragement);
         ft.commit();
@@ -219,7 +219,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.memberregistration) {
 //            getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame,
 //                    new Fragment_Add_Product_names()).commit();
-            Intent intent = new Intent(MainActivity.this, dummyActivity.class);
+            Intent intent = new Intent(MainActivity.this, Member_Registration_Activity.class);
             startActivity(intent);
 
         } else if (id == R.id.relationform) {
@@ -230,7 +230,7 @@ public class MainActivity extends AppCompatActivity
         }else if (id == R.id.viewmembers) {
 
             getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame,
-                    new Doctors_TabFragment()).commit();
+                    new Members_TabFragment()).commit();
 
         } else if (id == R.id.reports) {
             getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame,

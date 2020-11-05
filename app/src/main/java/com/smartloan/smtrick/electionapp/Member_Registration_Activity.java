@@ -51,7 +51,7 @@ import java.util.Locale;
 import static com.smartloan.smtrick.electionapp.Constants.AGENT_PREFIX;
 import static com.smartloan.smtrick.electionapp.Constants.CALANDER_DATE_FORMATE;
 
-public class dummyActivity extends AppCompatActivity implements View.OnClickListener {
+public class Member_Registration_Activity extends AppCompatActivity implements View.OnClickListener {
 
     private static final int RESULT_LOAD_IMAGE = 1;
     private static final int REQUEST_CROP_IMAGE = 2342;
@@ -65,23 +65,21 @@ public class dummyActivity extends AppCompatActivity implements View.OnClickList
     private CheckBox CHmemberrelation;
 
     private String Smemberward, Smembername, Smemberbirthdate, Smembereducation, Smemberoccupation, Smembertemaddress, Smemberpermanentaddress,
-            Smembercurrentaddress, Smembercontact, Scountrycode, Smembercast, Smembergender, Smembervoteridnumber, Smemberrelation, Smemberid, Sleedid,
+            Smembercurrentaddress, Smembercontact, Scountrycode, Smembercast, Smembergender,SmemberZone, Smembervoteridnumber, Smemberrelation, Smemberid, Sleedid,
             Smemberage;
     String Sdownloadurl;
 
-    private RadioGroup groupGender;
-    private RadioButton Rmale, Rfemale, Rgender;
+    private RadioGroup groupGender,groupZone;
+    private RadioButton Rmale, Rfemale, Rgender,ROrenge,RGreen,RRed,RZone;
 
     private DatabaseReference mDatabaseRefpatient;
     private DatabaseReference mDatabase;
     private StorageReference storageReference;
 
-
     private Button AddmainData;
     private List<String> mainproductlist;
     private List<String> subproductlist;
     // MainProducts mainProducts;
-
 
     private List<String> listoccupation;
     private List<String> listoccupation_Marathi;
@@ -144,9 +142,15 @@ public class dummyActivity extends AppCompatActivity implements View.OnClickList
         Rmale = (RadioButton) findViewById(R.id.radioMale);
         Rfemale = (RadioButton) findViewById(R.id.radioFemale);
 
+        ROrenge = (RadioButton) findViewById(R.id.radioOrenge);
+        RGreen = (RadioButton) findViewById(R.id.radioGreen);
+        RRed = (RadioButton) findViewById(R.id.radioRed);
+
+
         spinneroccupation = (Spinner) findViewById(R.id.occupation);
         spinnercountrycode = (Spinner) findViewById(R.id.countrycode);
         groupGender = (RadioGroup) findViewById(R.id.radioSex);
+        groupZone = (RadioGroup) findViewById(R.id.radioGroupZone);
         CHmemberrelation = (CheckBox) findViewById(R.id.relation);
 
         MemberImage = (ImageView) findViewById(R.id.memberimage);
@@ -225,6 +229,13 @@ public class dummyActivity extends AppCompatActivity implements View.OnClickList
             }
         });
 
+        groupZone.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
+                RZone = (RadioButton) findViewById(checkedId);
+            }
+        });
+
         AddmainData.setOnClickListener(this);
 
         setFromDateClickListner();
@@ -299,7 +310,7 @@ public class dummyActivity extends AppCompatActivity implements View.OnClickList
         etmemberbirthdate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
-                DatePickerDialog mDatePicker = new DatePickerDialog(dummyActivity.this, new DatePickerDialog.OnDateSetListener() {
+                DatePickerDialog mDatePicker = new DatePickerDialog(Member_Registration_Activity.this, new DatePickerDialog.OnDateSetListener() {
                     public void onDateSet(DatePicker datepicker, int selectedyear, int selectedmonth, int selectedday) {
                         Calendar myCalendar = Calendar.getInstance();
                         myCalendar.set(Calendar.YEAR, selectedyear);
@@ -329,7 +340,7 @@ public class dummyActivity extends AppCompatActivity implements View.OnClickList
             if (v == AddmainData) {
 
 
-                final ProgressDialog progressDialog = new ProgressDialog(dummyActivity.this);
+                final ProgressDialog progressDialog = new ProgressDialog(Member_Registration_Activity.this);
                 progressDialog.setTitle("Uploading");
                 progressDialog.show();
 
@@ -349,6 +360,10 @@ public class dummyActivity extends AppCompatActivity implements View.OnClickList
                 if (groupGender.getCheckedRadioButtonId() != -1) {
                     RadioButton btn = (RadioButton) groupGender.getChildAt(groupGender.indexOfChild(groupGender.findViewById(groupGender.getCheckedRadioButtonId())));
                     Smembergender = btn.getText().toString();
+                }
+                if (groupZone.getCheckedRadioButtonId() != -1) {
+                    RadioButton btn = (RadioButton) groupZone.getChildAt(groupZone.indexOfChild(groupZone.findViewById(groupZone.getCheckedRadioButtonId())));
+                    SmemberZone = btn.getText().toString();
                 }
                 if (CHmemberrelation.isChecked()) {
                     Smemberrelation = CHmemberrelation.getText().toString();
@@ -373,13 +388,13 @@ public class dummyActivity extends AppCompatActivity implements View.OnClickList
                             public void onSuccess(Uri uri) {
                                 Sdownloadurl = uri.toString();
 
-                                    MemberVO memberdetails = new MemberVO(Smemberward, Smembername, Smemberbirthdate, Smembereducation, Smemberoccupation, Smembertemaddress, Smemberpermanentaddress,
-                                            Smembercurrentaddress, Smembercontact, Smembercast, Smembergender, Smembervoteridnumber, Smemberrelation, Smemberid,
-                                            Sleedid, Sdownloadurl, Smemberage);
+                                MemberVO memberdetails = new MemberVO(Smemberward, Smembername, Smemberbirthdate, Smembereducation, Smemberoccupation, Smembertemaddress, Smemberpermanentaddress,
+                                        Smembercurrentaddress, Smembercontact, Smembercast, Smembergender, Smembervoteridnumber, Smemberrelation, Smemberid,
+                                        Sleedid, Sdownloadurl, Smemberage,SmemberZone);
 
-                                    mDatabaseRefpatient.child(Sleedid).setValue(memberdetails);
+                                mDatabaseRefpatient.child(Sleedid).setValue(memberdetails);
 
-                                    Toast.makeText(getApplicationContext(), "Application Submited", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Application Submited", Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
@@ -387,7 +402,7 @@ public class dummyActivity extends AppCompatActivity implements View.OnClickList
                     @Override
                     public void onFailure(@NonNull Exception exception) {
                         progressDialog.dismiss();
-                        Toast.makeText(dummyActivity.this, exception.getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(Member_Registration_Activity.this, exception.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                     @Override
@@ -458,7 +473,7 @@ public class dummyActivity extends AppCompatActivity implements View.OnClickList
                         Rmale.setText(R.string.register_male);
                         Rfemale.setText(R.string.register_female);
 
-                        ArrayAdapter<String> occupation = new ArrayAdapter<String>(dummyActivity.this,
+                        ArrayAdapter<String> occupation = new ArrayAdapter<String>(Member_Registration_Activity.this,
                                 android.R.layout.simple_spinner_item, listoccupation_Marathi);
                         occupation.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         spinneroccupation.setAdapter(occupation);
@@ -483,7 +498,7 @@ public class dummyActivity extends AppCompatActivity implements View.OnClickList
                         Rmale.setText(R.string.mem_male);
                         Rfemale.setText(R.string.mem_female);
 
-                        ArrayAdapter<String> occupation = new ArrayAdapter<String>(dummyActivity.this,
+                        ArrayAdapter<String> occupation = new ArrayAdapter<String>(Member_Registration_Activity.this,
                                 android.R.layout.simple_spinner_item, listoccupation);
                         occupation.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         spinneroccupation.setAdapter(occupation);
@@ -494,7 +509,7 @@ public class dummyActivity extends AppCompatActivity implements View.OnClickList
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                    Toast.makeText(dummyActivity.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Member_Registration_Activity.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
 
                 }
             });
