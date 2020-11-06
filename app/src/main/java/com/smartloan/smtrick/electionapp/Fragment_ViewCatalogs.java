@@ -1,20 +1,17 @@
 package com.smartloan.smtrick.electionapp;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.provider.Settings;
 import android.telephony.SmsManager;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +22,11 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -32,8 +34,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -83,6 +88,22 @@ public class Fragment_ViewCatalogs extends Fragment {
             Toast.makeText(getContext(), "No Internet Connection", Toast.LENGTH_SHORT).show();
         }
 
+        Dexter.withActivity(getActivity())
+                .withPermissions(
+                        Manifest.permission.SEND_SMS,
+                        Manifest.permission.READ_CONTACTS
+                ).withListener(new MultiplePermissionsListener() {
+            @Override public void onPermissionsChecked(MultiplePermissionsReport report) {/* ... */}
+
+            @Override public void onPermissionRationaleShouldBeShown(List<com.karumi.dexter.listener.PermissionRequest> list, PermissionToken permissionToken) {/* ... */}
+        }).check();
+
+        if(!isAccessibilityOn(getContext())){
+            Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
+
         databaseReference = FirebaseDatabase.getInstance().getReference();
         edtSearch.addTextChangedListener(new TextWatcher() {
             @Override
@@ -124,28 +145,35 @@ public class Fragment_ViewCatalogs extends Fragment {
                 dialogEditButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        for (int j = 0; j < catalogList.size(); j++) {
-                            number = catalogList.get(j).getMembercontact();
-                            if (number != null) {
-                                PackageManager packageManager = getActivity().getPackageManager();
-                                Intent i = new Intent(Intent.ACTION_VIEW);
 
-                                try {
-                                    String message1 = message.getText().toString();
-                                    String url = "https://api.whatsapp.com/send?phone=" + number + "&text=" + URLEncoder.encode(message1, "UTF-8");
-                                    i.setPackage("com.whatsapp");
-                                    i.setData(Uri.parse(url));
-                                    if (i.resolveActivity(packageManager) != null) {
-                                        getActivity().startActivity(i);
-                                    }
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        }
+                        MySMSservice.startActionWHATSAPP(getContext(),message.getText().toString(),
+                                "1",catalogList,true);
+
+
+//                        for (int j = 0; j < catalogList.size(); j++) {
+//                            number = catalogList.get(j).getMembercontact();
+//                            if (number != null) {
+//                                PackageManager packageManager = getActivity().getPackageManager();
+//                                Intent i = new Intent(Intent.ACTION_VIEW);
+//
+//                                try {
+//                                    String message1 = message.getText().toString();
+//                                    String url = "https://api.whatsapp.com/send?phone=" + number + "&text=" + URLEncoder.encode(message1, "UTF-8");
+//                                    i.setPackage("com.whatsapp");
+//                                    i.setData(Uri.parse(url));
+//                                    if (i.resolveActivity(packageManager) != null) {
+//                                        getActivity().startActivity(i);
+//                                    }
+//                                } catch (Exception e) {
+//                                    e.printStackTrace();
+//                                }
+//                            }
+//                        }
 //                        Toast.makeText(getContext(), "Sent", Toast.LENGTH_SHORT).show();
+
                     }
                 });
+
 
                 dialogEditButtoncancle.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -375,5 +403,31 @@ public class Fragment_ViewCatalogs extends Fragment {
                 = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+    private boolean isAccessibilityOn(Context context) {
+        int accessibilityEnabled = 0;
+        final String service = context.getPackageName () + "/" + WhatAppAccessibilityService.class.getCanonicalName ();
+        try {
+            accessibilityEnabled = Settings.Secure.getInt (context.getApplicationContext ().getContentResolver (), Settings.Secure.ACCESSIBILITY_ENABLED);
+        } catch (Settings.SettingNotFoundException ignored) {  }
+
+        TextUtils.SimpleStringSplitter colonSplitter = new TextUtils.SimpleStringSplitter (':');
+
+        if (accessibilityEnabled == 1) {
+            String settingValue = Settings.Secure.getString (context.getApplicationContext ().getContentResolver (), Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES);
+            if (settingValue != null) {
+                colonSplitter.setString (settingValue);
+                while (colonSplitter.hasNext ()) {
+                    String accessibilityService = colonSplitter.next ();
+
+                    if (accessibilityService.equalsIgnoreCase (service)) {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
     }
 }

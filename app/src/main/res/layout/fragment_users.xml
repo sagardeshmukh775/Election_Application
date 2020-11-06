@@ -8,13 +8,13 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp">
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/userRecycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/buttons">
 
-        </android.support.v7.widget.RecyclerView>
+        </androidx.recyclerview.widget.RecyclerView>
 
         <LinearLayout
             android:id="@+id/buttons"

@@ -4,11 +4,13 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.support.design.widget.Snackbar;
-import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.core.content.ContextCompat;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -165,7 +167,7 @@ public class Utility {
                     }
                 });
         View snackbarView = snackbar.getView();
-        TextView textView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
+        TextView textView = (TextView) snackbarView.findViewById(com.google.android.material.R.id.snackbar_text);
         textView.setMaxLines(8);//this is your max line as your want
         snackbarView.setBackgroundColor(ContextCompat.getColor(context, R.color.input_register_bg));
         textView.setTextColor(ContextCompat.getColor(context, R.color.white));
@@ -181,7 +183,7 @@ public class Utility {
                     }
                 });
         View snackbarView = snackbar.getView();
-        TextView textView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
+        TextView textView = (TextView) snackbarView.findViewById(com.google.android.material.R.id.snackbar_text);
         snackbarView.setBackgroundColor(ContextCompat.getColor(context, R.color.input_register_bg));
         textView.setTextColor(ContextCompat.getColor(context, R.color.white));
         textView.setMaxLines(8);//this is your max line as your want

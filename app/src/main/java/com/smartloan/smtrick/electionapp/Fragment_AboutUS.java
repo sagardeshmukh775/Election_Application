@@ -1,8 +1,6 @@
 package com.smartloan.smtrick.electionapp;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +9,8 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 
 public class Fragment_AboutUS extends Fragment {
